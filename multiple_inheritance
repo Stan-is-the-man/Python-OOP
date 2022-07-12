@@ -1,0 +1,15 @@
+class Employee:
+    def get_fired(self):
+        return "fired..."
+        
+class Person:
+    def sleep(self):
+        return "sleeping..."
+
+from multiple_inheritance.person import Person
+from multiple_inheritance.employee import Employee
+
+
+class Teacher(Person, Employee):
+    def teach(self):
+        return "teaching..."
