@@ -1,0 +1,17 @@
+class Animal:
+    def eat(self):
+        return "eating..."
+class Animal:
+class Animal:
+    def eat(self):
+        return "eating..."
+    def eat(self):
+        return "eating..."
+        
+        
+from single_inheritance.animal import Animal
+
+
+class Dog(Animal):
+    def bark(self):
+        return "barking..."
