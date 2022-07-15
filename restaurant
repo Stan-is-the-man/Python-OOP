@@ -68,3 +68,22 @@ class Dessert(Food):
     @property
     def calories(self):
         return self.__calories
+    
+    
+from restaurant.product import Product
+
+
+class Food(Product):
+    def __init__(self, name, price, grams):
+        super().__init__(name, price)
+        self.__grams = grams
+
+    @property
+    def grams(self):
+        return self.__grams
+from restaurant.food.food import Food
+
+
+class MainDish(Food):
+    def __init__(self, name, price, grams):
+        super().__init__(name, price, grams)
