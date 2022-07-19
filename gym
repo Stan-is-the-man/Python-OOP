@@ -51,3 +51,97 @@ class ExercisePlan:
 
     def __repr__(self):
         return f"Plan <{self.id}> with duration {self.duration} minutes"
+   from gym.customer import Customer
+from gym.equipment import Equipment
+from gym.exercise_plan import ExercisePlan
+from gym.subscription import Subscription
+from gym.trainer import Trainer
+
+
+class Gym:
+    def __init__(self):
+        self.customers = []
+        self.trainers = []
+        self.equipment = []
+        self.plans = []
+        self.subscriptions = []
+
+    def add_customer(self, customer: Customer):
+        if customer in self.customers:
+            return
+
+        self.customers.append(customer)
+
+    def add_trainer(self, trainer: Trainer):
+        if trainer in self.trainers:
+            return
+
+        self.trainers.append(trainer)
+
+    def add_equipment(self, equipment: Equipment):
+        if equipment in self.equipment:
+            return
+
+        self.equipment.append(equipment)
+
+    def add_plan(self, plan: ExercisePlan):
+        if plan in self.plans:
+            return
+
+        self.plans.append(plan)
+
+    def add_subscription(self, subscription: Subscription):
+        if subscription in self.subscriptions:
+            return
+
+        self.subscriptions.append(subscription)
+
+    @staticmethod
+    def find_by_id(objects, obj_id):
+        for obj in objects:
+            if obj.id == obj_id:
+                return obj
+
+    def subscription_info(self, subscription_id):
+        subscription = self.find_by_id(self.subscriptions, subscription_id)
+        customer = self.find_by_id(self.customers, subscription.customer_id)
+        trainer = self.find_by_id(self.trainers, subscription.trainer_id)
+        exercise_plan = self.find_by_id(self.plans, subscription.exercise_id)
+        equipment = self.find_by_id(self.equipment, exercise_plan.equipment_id)
+
+        return repr(subscription) + "\n" + repr(customer) + "\n" + repr(trainer) + "\n" + repr(equipment) + "\n" + \
+               repr(exercise_plan)
+    class Subscription:
+    id = 0
+
+    def __init__(self, date: str, customer_id: int, trainer_id: int, exercise_id: int):
+        self.date = date
+        self.customer_id = customer_id
+        self.trainer_id = trainer_id
+        self.exercise_id = exercise_id
+        self.id = self.get_next_id()
+
+    @staticmethod
+    def get_next_id():
+        Subscription.id += 1
+        return Subscription.id
+
+    def __repr__(self):
+        return f"Subscription <{self.id}> on {self.date}"
+ 
+ class Trainer:
+    id = 0
+
+    def __init__(self, name):
+        self.name = name
+        self.id = self.get_next_id()
+
+    @staticmethod
+    def get_next_id():
+        Trainer.id += 1
+        return Trainer.id
+
+    def __repr__(self):
+        return f"Trainer <{self.id}> {self.name}"
+
+    
