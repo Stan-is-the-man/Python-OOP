@@ -41,3 +41,82 @@ class Document:
     def __repr__(self):
         tags_str = ", ".join(self.tags)
         return f"Document {self.id}: {self.file_name}; category {self.category_id}, topic {self.topic_id}, tags: {tags_str}"
+        from document_management.category import Category
+from document_management.document import Document
+from document_management.topic import Topic
+
+
+class Storage:
+    def __init__(self):
+        self.categories = []
+        self.topics = []
+        self.documents = []
+
+    def add_category(self, category: Category):
+        if category in self.categories:
+            return
+        self.categories.append(category)
+
+    def add_topic(self, topic: Topic):
+        if topic in self.topics:
+            return
+        self.topics.append(topic)
+
+    def add_document(self, document: Document):
+        if document in self.documents:
+            return
+        self.documents.append(document)
+
+    @staticmethod
+    def find_object_by_id(object_id, objects):
+        for obj in objects:
+            if obj.id == object_id:
+                return obj
+
+    def edit_category(self, category_id: int, new_name: str):
+        category = self.find_object_by_id(category_id, self.categories)
+        category.edit(new_name)  # method from category
+
+    def edit_topic(self, topic_id: int, new_topic: str, new_storage_folder: str):
+        topic = self.find_object_by_id(topic_id, self.topics)
+        topic.edit(new_topic, new_storage_folder)
+
+    def edit_document(self, document_id: int, new_file_name: str):
+        document = self.find_object_by_id(document_id, self.documents)
+        document.edit(new_file_name)
+
+    def delete_category(self, category_id):
+        category = self.find_object_by_id(category_id, self.categories)
+        self.categories.remove(category)
+
+    def delete_topic(self, topic_id):
+        topic = self.find_object_by_id(topic_id, self.topics)
+        self.topics.remove(topic)
+
+    def delete_document(self, document_id):
+        document = self.find_object_by_id(document_id, self.documents)
+        self.documents.remove(document)
+
+    def get_document(self, document_id):
+        document = self.find_object_by_id(document_id, self.documents)
+        return document
+
+    def __repr__(self):
+        result = "\n".join(repr(x) for x in self.documents)
+        return result
+        
+    
+class Topic:
+    def __init__(self, id: int, topic: str, storage_folder: str):
+        self.id = id
+        self.topic = topic
+        self.storage_folder = storage_folder
+
+    def edit(self, new_topic: str, new_storage_folder: str):
+        self.topic = new_topic
+        self.storage_folder = new_storage_folder
+
+    def __repr__(self):
+        return f"Topic {self.id}: {self.topic} in {self.storage_folder}"
+
+        
