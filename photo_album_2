@@ -1,0 +1,51 @@
+from math import ceil
+
+
+class PhotoAlbum:
+    PHOTOS_PER_PAGE = 4
+
+    def __init__(self, pages):
+        self.pages = pages
+        self.photos = self.build_empty_matrix(pages)
+
+    @staticmethod
+    def build_empty_matrix(row):
+        matrix = []
+        for page in range(row):
+            matrix.append([])
+        return matrix
+
+    @classmethod
+    def from_photos_count(cls, photos_count):
+        pages = ceil(photos_count / PhotoAlbum.PHOTOS_PER_PAGE)
+        return cls(pages)
+
+    def add_photo(self, label: str):
+        for page, photos in enumerate(self.photos):
+            if len(photos) < PhotoAlbum.PHOTOS_PER_PAGE:
+                photos.append(label)
+                return f"{label} photo added successfully on page {page + 1} slot {len(photos)}"
+        return "No more free slots"
+
+    def display(self):
+        result = "-----------\n"
+        for page in self.photos:
+            page_str = " ".join(["[]" for x in page])
+            result += page_str
+            result += "\n"
+            result += "-----------\n"
+
+        return result.strip()
+
+
+album = PhotoAlbum(2)
+
+print(album.add_photo("baby"))
+print(album.add_photo("first grade"))
+print(album.add_photo("eight grade"))
+print(album.add_photo("party with friends"))
+print(album.photos)
+print(album.add_photo("prom"))
+print(album.add_photo("wedding"))
+
+print(album.display())
