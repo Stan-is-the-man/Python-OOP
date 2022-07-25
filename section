@@ -31,4 +31,7 @@ class Section:
         for single_task in self.tasks:
             result += "\n" + single_task.details()
         return result
+        
+        
+        
 
