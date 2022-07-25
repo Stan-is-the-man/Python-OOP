@@ -26,7 +26,8 @@ class Integer:
                 return "wrong type"
             return "wrong type"
         return cls(int(value))
-
+        
+        
 
 first_num = Integer(10)
 print(first_num.value)
