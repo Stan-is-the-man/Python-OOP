@@ -13,3 +13,35 @@ class Mammal:
 
     def info(self):
         return f"{self.name} is of type {self.type}"
+
+
+from unittest import TestCase, main
+
+from mammal.project.mammal import Mammal
+
+
+class TestMammal(TestCase):
+    def test_constructor(self):
+        mammal = Mammal("Name", "Type", "Sound")
+        self.assertEqual('Name', mammal.name)
+        self.assertEqual('Type', mammal.type)
+        self.assertEqual('Sound', mammal.sound)
+        self.assertEqual('animals', mammal.get_kingdom())
+
+    def test_make_sound(self):
+        mammal = Mammal("Name", "Type", "sound")
+        expected = "Name makes sound"
+        self.assertEqual(expected, mammal.make_sound())
+
+    def test_get_kingdom(self):
+        mammal = Mammal("Name", "Type", "sound")
+        self.assertEqual("animals", mammal.get_kingdom())
+        #self.assertEqual("animals", mammal._Mammal__kingdom)
+
+    def test_info(self):
+        mammal = Mammal("Name", "Type", "sound")
+        self.assertEqual("Name is of type Type", mammal.info())
+
+
+if __name__ == "__main__":
+    main()
